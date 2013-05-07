@@ -48,7 +48,7 @@
   <article class="container new">
     <h3>New Experiment</h3>
     <pre><%= %{
-<script src="//#{request.host_with_port}/v1/abba.js"></script>
+<script src="#{request.scheme}://#{request.host_with_port}/v1/abba.js"></script>
 
 <script>
   Abba('test name')
