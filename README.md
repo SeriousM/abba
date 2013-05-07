@@ -25,9 +25,9 @@ To run locally:
 
 ## Heroku 10 seconds setup
 
-    git clone git://github.com/maccman/abba.git && cd abba
+    git clone git://github.com/SeriousM/abba.git && cd abba
     heroku create
-    heroku addons:add mongohq:sandbox
+    heroku addons:add mongolab:sandbox
     git push heroku master
     heroku open
 
