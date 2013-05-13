@@ -5,7 +5,7 @@ namespace :assets do
     require 'uglifier'
 
     sprockets = Sprockets::Environment.new
-    sprockets.js_compressor = Uglifier.new
+    sprockets.js_compressor = nil#Uglifier.new
     sprockets.append_path('app/assets/javascripts')
 
     FileUtils.mkdir_p('public/v1')
