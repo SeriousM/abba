@@ -57,6 +57,7 @@ class @Abba
   defaults:
     path: '/'
     expires: 600
+    environment: 'Default'
 
   constructor: (name, options = {}) ->
     unless name
@@ -66,10 +67,11 @@ class @Abba
     if this not instanceof Abba
       return new Abba(name, options)
 
-    @name     = name
-    @options  = options
-    @variants = []
+    @name        = name
+    @options     = options
+    @variants    = []
 
+    @environment = options.environment || @defaults.environment
     @endpoint = @options.endpoint or @constructor.endpoint
 
   variant: (name, options, callback) ->
@@ -166,9 +168,10 @@ class @Abba
     # Record which experiment was run on the server
     request(
       "#{@endpoint}/start",
-      experiment: @name,
-      variant:    variant.name,
-      control:    variant.control or false
+      environment: @environment
+      experiment:  @name,
+      variant:     variant.name,
+      control:     variant.control or false
     )
 
     # Set the variant we chose as a cookie
@@ -176,7 +179,12 @@ class @Abba
 
   recordComplete: (name) ->
     # Record the experiment was completed on the server
-    request("#{@endpoint}/complete", experiment: @name, variant: name)
+    request(
+      "#{@endpoint}/complete",
+      environment: @environment
+      experiment:  @name,
+      variant:     name
+    )
 
   # Variant Cookie
 

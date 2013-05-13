@@ -17,6 +17,7 @@
           <th class="state"></th>
           <th class="index">#</th>
           <th class="name">Name</th>
+          <th class="environment">Environment</th>
           <th class="visitors">Visitors</th>
           <th class="actions"></th>
         </tr>
@@ -31,6 +32,10 @@
             <a href="/admin/experiments/<%= experiment.id %>">
               <%= experiment.name %>
             </a>
+          </td>
+
+          <td class="environment">
+            <%= experiment.environment %>
           </td>
 
           <td class="visitors">
@@ -53,19 +58,15 @@
 <script src="#{request.scheme}://#{request.host_with_port}/v1/abba.js"></script>
 
 <script>
-  Abba('test name')
+  Abba('test name', {environment: 'optional'})
     .control('test a', function(){ /* ... */ })
     .variant('test b', function(){ /* ... */ })
     .start();
-
-  // --or--
-
-  Abba('test name').start('test b');
 </script>
 
 <script>
   // On successful conversion
-  Abba('test name').complete();
+  Abba('test name', {environment: 'optional', persist: true}).complete();
 </script>
 }.strip %></pre>
   </article>

@@ -3,12 +3,14 @@ module Abba
     include MongoMapper::Document
 
     key :name
+    key :environment, :default => "Default"
     key :running, Boolean, :default => true
     timestamps!
 
     has_many :variants, :class => Abba::Variant, :dependent => :destroy
 
     validates_presence_of :name
+    validates_presence_of :environment
 
     def granular_conversion_rate(options = {})
       variants.all.map do |variant|
@@ -32,7 +34,7 @@ module Abba
     end
 
     def as_json(options = nil)
-      {id: id, name: name}
+      {id: id, name: name, environment: environment}
     end
   end
 end

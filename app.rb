@@ -46,7 +46,9 @@ end
 get '/start', :provides => 'image/gif' do
   required :experiment, :variant
 
-  experiment = Abba::Experiment.find_or_create_by_name(params[:experiment])
+  environment = params[:environment] || "Default"
+
+  experiment = Abba::Experiment.find_or_create_by_name_and_environment(params[:experiment], environment)
 
   variant = experiment.variants.find_by_name(params[:variant])
   variant ||= experiment.variants.create!(:name => params[:variant], :control => params[:control])
@@ -60,7 +62,9 @@ end
 get '/complete', :provides => 'image/gif' do
   required :experiment, :variant
 
-  experiment = Abba::Experiment.find_or_create_by_name(params[:experiment])
+  environment = params[:environment] || "Default"
+
+  experiment = Abba::Experiment.find_or_create_by_name_and_environment(params[:experiment], environment)
 
   variant = experiment.variants.find_by_name(params[:variant])
   variant.complete!(request) if variant && experiment.running?
