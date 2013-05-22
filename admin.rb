@@ -140,6 +140,13 @@ get '/admin/experiments/:id' do
     end_at: @end_at, tranche: @tranche
   )
 
+  def @variants.completed_count_sum
+    @variants.map(&:completed_count).inject{|sum,x| sum + x }
+  end
+  def @variants.started_count_sum
+    @variants.map(&:started_count).inject{|sum,x| sum + x }
+  end
+
   @params = {
     start_at: @start_at.strftime('%F'),
     end_at:   @end_at.strftime('%F'),

@@ -90,6 +90,15 @@
             <td class="difference <%= dir(variant.percent_difference) %>"><%= variant.percent_difference %></td>
           </tr>
         <% end %>
+
+        <tr>
+          <td><b>Total</b></td>
+          <td><%= @variants.completed_count_sum %> / <%= @variants.started_count_sum %></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+
       </table>
     </article>
 
