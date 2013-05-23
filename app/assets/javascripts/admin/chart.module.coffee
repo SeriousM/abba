@@ -28,6 +28,11 @@ class Chart extends Controller
         .orient('bottom')
         .tickFormat((d, i) -> moment(d).format('MMM Do'))
 
+    xAxisLine = d3.svg.axis()
+        .scale(x)
+        .tickSize(1)
+        .tickFormat((d, i) -> '')
+
     yAxis = d3.svg.axis()
         .scale(y)
         .ticks(5)
@@ -67,6 +72,12 @@ class Chart extends Controller
     svg.append('g')
         .attr('class', 'y axis')
         .call(yAxis)
+
+    for i in [0..4] by 1
+        svg.append('g')
+           .attr('class', 'x axis')
+           .attr('transform', "translate(0,#{(height/5) * i})")
+           .call(xAxisLine)
 
     svg.selectAll('.areas')
         .data(variants)
