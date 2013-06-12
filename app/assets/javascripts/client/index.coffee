@@ -128,11 +128,11 @@ class @Abba
         break if variantWeight >= randomWeight
 
     throw new Error('No variants added') unless variant
-    @recordStart(variant, callack)
+    @recordStart(variant, callback)
     @useVariant(variant)
     this
 
-  complete: (name, callack) ->
+  complete: (name, callback) ->
     # Optionally pass a name, or read from the cookie
     name or= @getVariantCookie()
     return this unless name
@@ -164,7 +164,7 @@ class @Abba
     variant?.callback?()
     @chosen = variant
 
-  recordStart: (variant) ->
+  recordStart: (variant, callback) ->
     # Record which experiment was run on the server
     request(
       "#{@endpoint}/start",
@@ -178,7 +178,7 @@ class @Abba
     # Set the variant we chose as a cookie
     @setVariantCookie(variant.name)
 
-  recordComplete: (name) ->
+  recordComplete: (name, callback) ->
     # Record the experiment was completed on the server
     request(
       "#{@endpoint}/complete",
